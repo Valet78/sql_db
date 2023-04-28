@@ -13,6 +13,13 @@ SELECT MARK, COUNT(*) AS COUNT_CAR,
 	END AS ANY_MARK  
 FROM auto GROUP BY MARK ORDER BY MARK;
 
+# Вариант от коллеги Ivan Tanasoglo
+SELECT mc.MARK, mc.mark_count, (au.count_auto - mc.mark_count) AS over_count FROM 
+	(SELECT mark, COUNT(*) AS mark_count FROM auto GROUP BY mark) AS mc
+	CROSS JOIN 
+    (SELECT COUNT(*) AS count_auto FROM auto) AS au;
+
+
 # Задание 3.
 SELECT * FROM test_a WHERE id NOT IN (SELECT id FROM test_b);
 SELECT id FROM test_a EXCEPT SELECT id FROM test_b;
